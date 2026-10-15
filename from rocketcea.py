@@ -79,6 +79,7 @@ def create_o_f_array(o_f_end, iteration):
 
 def create_temp_array(p_c, o_f_array):
     array = []
+    
     for i in o_f_array:
         current = cea.get_Tcomb(p_c, i) * (5/9)
         array.append(current)
@@ -97,6 +98,7 @@ def main():
    o_f_end = float(input("input the last value in the OF ratio array: "))
    iteration = float(input("enter the iteration value in the array (ex: steps of 0.005): "))
    p_c = float(input("input pressure chamber in bar: "))
+   p_c *= 14.504
    thrust = float(input("enter the thrust: "))
    o_f_array = create_o_f_array(o_f_end, iteration)
    temp_array = create_temp_array(p_c, o_f_array)
