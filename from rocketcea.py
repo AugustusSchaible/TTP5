@@ -1,5 +1,6 @@
 from rocketcea.cea_obj import CEA_Obj
 import numpy as np
+import matplotlib.pyplot as plt
 
 g = 9.81 # assigns 9.81 to the variable g
 mix_eff = 0.8
@@ -72,15 +73,34 @@ def create_o_f_array(o_f_end, iteration):
     while current <= o_f_end:
         array.append(current)
         current += iteration
-    return array
+    o_f_array = np.array(array)
+    return o_f_array
+
+
+def create_temp_array(p_c, o_f_array):
+    array = []
+    for i in o_f_array:
+        current = cea.get_Tcomb(p_c, i) * (5/9)
+        array.append(current)
+    temp_array = np.array(array)
+    return temp_array
+
+def plot_temp_o_f(temp_array, o_f_array):
+    plt.plot(o_f_array,temp_array)
+    plt.title("Chamber temp over OF ratio")
+    plt.xlabel("OF ratio")
+    plt.ylabel("Chamber Temp [K]")
+    plt.show()
 
 
 def main():
    o_f_end = float(input("input the last value in the OF ratio array: "))
    iteration = float(input("enter the iteration value in the array (ex: steps of 0.005): "))
+   p_c = float(input("input pressure chamber in bar: "))
    thrust = float(input("enter the thrust: "))
    o_f_array = create_o_f_array(o_f_end, iteration)
-   print (o_f_array)
+   temp_array = create_temp_array(p_c, o_f_array)
+   plot_temp_o_f(temp_array, o_f_array)
 
 #hi gus part 2
 
